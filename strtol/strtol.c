@@ -14,6 +14,7 @@ long strtol(const char* nPtr, char** endPtr, int base)
 
 	if ((base < 2 || base > 36) && base != 0)
 	{
+		errno = EINVAL;
 		return 0;
 	}
 
@@ -61,39 +62,72 @@ long strtol(const char* nPtr, char** endPtr, int base)
 		nPtr += 2;
 		c = *nPtr;
 	}
+
+	int digit;
 	
+	if (isdigit(c))
+	{
+		digit = c - '0';
+	}
+	else if (isalpha(c))
+	{
+		digit = toupper(c) - 'A';
+	}
 	
+	if (digit >= base)
+	{
+		errno = EINVAL;
+		return 0;
+	}
+	
+
+	if (!isalnum(c))
+	{
+		return 0;
+	}
 	
 	while (isalnum(c))
 	{
-		if (isdigit(c) && value <= (LONG_MAX - (c - '0')) / base)
+		if (sign == 1) 
 		{
-			value = value * base + (c - '0');
+			if (isdigit(c) && value <= (LONG_MAX - (c - '0')) / base)
+			{
+				value = value * base + (c - '0');
+			}
+			else if (isalpha(c) && value <= (LONG_MAX - (toupper(c) - 'A' + 10)) / base)
+			{
+				value = value * base + (toupper(c) - 'A' + 10);
+			}
+			else
+			{
+				value = LONG_MAX;
+				errno = ERANGE;
+			}
 		}
-		else if (isalpha(c) && value <= (LONG_MAX - (toupper(c) - 'A' + 10)) / base)
-		{
-			value = value * base + (toupper(c) - 'A' + 10);
+		else if (sign == -1)
+		{	
+			if (isdigit(c) && value >= (LONG_MIN + (c - '0')) / base) 
+			{
+				value = value * base - (c - '0');
+			}
+			else if (isalpha(c) && value >= (LONG_MIN + (toupper(c) - 'A' + 10)) / base)
+			{
+				value = value * base - (toupper(c) - 'A' + 10);
+			}
+			else
+			{
+				value = LONG_MIN;
+				errno = ERANGE;
+			}
 		}
-		else
-		{
-			value = LONG_MAX;
-			errno = ERANGE;
-		}
-		
 		
 		c = *(++nPtr);
 	}
-
-	if (sign == 1 && value < 0)
-	{
-		value *= (-1);
-	}
-	
 	
 	if (endPtr != NULL)
 	{
 		*endPtr = (char*) nPtr;
 	}
 
-	return value * sign;
+	return value;
 }
