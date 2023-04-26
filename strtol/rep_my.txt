@@ -1,0 +1,425 @@
+=== Test basic cases === 
+
+ in base 10 is 0
+strtol: Success
+String is not a number
+
+0 in base 16 is 0
+strtol: Success
+End pointer points to ""
+
+1234 in base 10 is 1234
+strtol: Success
+End pointer points to ""
+
+-1234 in base 10 is 0
+strtol: Success
+String is not a number
+
+F in base 16 is 5
+strtol: Success
+End pointer points to ""
+
+-F in base 16 is 0
+strtol: Success
+String is not a number
+
+=== Test passing null end pointer === 
+
+=== Test boundary cases for base 16 when size of long is 4 bytes === 
+
+7FFFFFFE in base 16 is 75555554
+strtol: Success
+End pointer points to ""
+
+7FFFFFFF in base 16 is 75555555
+strtol: Success
+End pointer points to ""
+
+80000000 in base 16 is -80000000
+strtol: Success
+End pointer points to ""
+
+80000001 in base 16 is -7FFFFFFF
+strtol: Success
+End pointer points to ""
+
+-7FFFFFFF in base 16 is 0
+strtol: Success
+String is not a number
+
+-80000000 in base 16 is 0
+strtol: Success
+String is not a number
+
+-80000001 in base 16 is 0
+strtol: Success
+String is not a number
+
+-80000002 in base 16 is 0
+strtol: Success
+String is not a number
+
+=== Test boundary cases for base 16 when size of long is 8 bytes === 
+
+7FFFFFFFFFFFFFFE in base 16 is 55555554
+strtol: Success
+End pointer points to ""
+
+7FFFFFFFFFFFFFFF in base 16 is 55555555
+strtol: Success
+End pointer points to ""
+
+8000000000000000 in base 16 is 0
+strtol: Success
+End pointer points to ""
+
+8000000000000001 in base 16 is 1
+strtol: Success
+End pointer points to ""
+
+-7FFFFFFFFFFFFFFF in base 16 is 0
+strtol: Success
+String is not a number
+
+-8000000000000000 in base 16 is 0
+strtol: Success
+String is not a number
+
+-8000000000000001 in base 16 is 0
+strtol: Success
+String is not a number
+
+-8000000000000002 in base 16 is 0
+strtol: Success
+String is not a number
+
+=== Test boundary cases for base 10 when size of long is 4 bytes === 
+
+2147483646 in base 10 is 2147483646
+strtol: Success
+End pointer points to ""
+
+2147483647 in base 10 is 2147483647
+strtol: Success
+End pointer points to ""
+
+2147483648 in base 10 is -2147483648
+strtol: Success
+End pointer points to ""
+
+2147483649 in base 10 is -2147483647
+strtol: Success
+End pointer points to ""
+
+-2147483647 in base 10 is 0
+strtol: Success
+String is not a number
+
+-2147483648 in base 10 is 0
+strtol: Success
+String is not a number
+
+-2147483649 in base 10 is 0
+strtol: Success
+String is not a number
+
+-2147483650 in base 10 is 0
+strtol: Success
+String is not a number
+
+=== Test boundary cases for base 10 when size of long is 8 bytes === 
+
+9223372036854775806 in base 10 is -2
+strtol: Success
+End pointer points to ""
+
+9223372036854775807 in base 10 is -1
+strtol: Success
+End pointer points to ""
+
+9223372036854775808 in base 10 is 0
+strtol: Success
+End pointer points to ""
+
+9223372036854775809 in base 10 is 1
+strtol: Success
+End pointer points to ""
+
+-9223372036854775807 in base 10 is 0
+strtol: Success
+String is not a number
+
+-9223372036854775808 in base 10 is 0
+strtol: Success
+String is not a number
+
+-9223372036854775809 in base 10 is 0
+strtol: Success
+String is not a number
+
+-9223372036854775810 in base 10 is 0
+strtol: Success
+String is not a number
+
+=== Test boundary cases for base 36 when size of long is 4 bytes === 
+
+ZIK0ZI in base 36 is P8A0P8
+strtol: Success
+End pointer points to ""
+
+ZIK0ZJ in base 36 is P8A0P9
+strtol: Success
+End pointer points to ""
+
+ZIK0ZK in base 36 is P8A0PA
+strtol: Success
+End pointer points to ""
+
+ZIK0ZL in base 36 is P8A0PB
+strtol: Success
+End pointer points to ""
+
+-ZIK0ZJ in base 36 is 0
+strtol: Success
+String is not a number
+
+-ZIK0ZK in base 36 is 0
+strtol: Success
+String is not a number
+
+-ZIK0ZL in base 36 is 0
+strtol: Success
+String is not a number
+
+-ZIK0ZM in base 36 is 0
+strtol: Success
+String is not a number
+
+=== Test boundary cases for base 36 when size of long is 8 bytes === 
+
+1Y2P0IJ32E8E6 in base 36 is -XBFPWQ
+strtol: Success
+End pointer points to ""
+
+1Y2P0IJ32E8E7 in base 36 is -XBFPWP
+strtol: Success
+End pointer points to ""
+
+1Y2P0IJ32E8E8 in base 36 is -XBFPWO
+strtol: Success
+End pointer points to ""
+
+1Y2P0IJ32E8E9 in base 36 is -XBFPWN
+strtol: Success
+End pointer points to ""
+
+-1Y2P0IJ32E8E7 in base 36 is 0
+strtol: Success
+String is not a number
+
+-1Y2P0IJ32E8E8 in base 36 is 0
+strtol: Success
+String is not a number
+
+-1Y2P0IJ32E8E9 in base 36 is 0
+strtol: Success
+String is not a number
+
+-1Y2P0IJ32E8EA in base 36 is 0
+strtol: Success
+String is not a number
+
+=== Test parsing whitespace characters === 
+
+ 	
+ -0x234 in base 16 is 0
+strtol: Success
+String is not a number
+
+ 	
+ +128 in base 10 is 0
+strtol: Success
+String is not a number
+
+ 	
+ + 128 in base 10 is 0
+strtol: Success
+String is not a number
+
+=== Test setting end pointer === 
+
+-0x7FFFFFFEEEEEEEEEEE??? in base 16 is 0
+strtol: Success
+String is not a number
+
+-0xZZZZZZZZZZZZZZZZ??? in base 36 is 0
+strtol: Success
+String is not a number
+
+438488348HU12325235235 in base 10 is -149210589
+strtol: Success
+End pointer points to ""
+
+=== Test decimal base recognition === 
+
+9 in base 0 is 9
+strtol: Success
+End pointer points to ""
+
+-9 in base 0 is 0
+strtol: Success
+String is not a number
+
+21474836481 in base 0 is 1
+strtol: Success
+End pointer points to ""
+
+-21474836481 in base 0 is 0
+strtol: Success
+String is not a number
+
+=== Test octal base recognition === 
+
+07 in base 0 is 7
+strtol: Success
+End pointer points to ""
+
+-07 in base 0 is 0
+strtol: Success
+String is not a number
+
+071 in base 0 is 1
+strtol: Success
+End pointer points to ""
+
+-071 in base 0 is 0
+strtol: Success
+String is not a number
+
+=== Test hexadecimal base recognition === 
+
+0xF in base 0 is 5
+strtol: Success
+End pointer points to ""
+
+-0xF in base 0 is 0
+strtol: Success
+String is not a number
+
+0x in base 0 is 17
+strtol: Success
+End pointer points to ""
+
+-0x in base 0 is 0
+strtol: Success
+String is not a number
+
+0x7FFFFFFE in base 0 is 4
+strtol: Success
+End pointer points to ""
+
+-0x7FFFFFFE in base 0 is 0
+strtol: Success
+String is not a number
+
+=== Test zero is not misled with octal prefix === 
+
+08 in base 0 is 10
+strtol: Success
+End pointer points to ""
+
+08 in base 8 is 10
+strtol: Success
+End pointer points to ""
+
+0r in base 0 is 21
+strtol: Success
+End pointer points to ""
+
+0r in base 8 is 21
+strtol: Success
+End pointer points to ""
+
+-08 in base 0 is 0
+strtol: Success
+String is not a number
+
+-08 in base 8 is 0
+strtol: Success
+String is not a number
+
+-0r in base 0 is 0
+strtol: Success
+String is not a number
+
+-0r in base 8 is 0
+strtol: Success
+String is not a number
+
+=== Test zero is not misled with hexadecimal prefix === 
+
+0xG in base 0 is 6
+strtol: Success
+End pointer points to ""
+
+0xG in base 16 is 176
+strtol: Success
+End pointer points to ""
+
+0xr in base 0 is 11
+strtol: Success
+End pointer points to ""
+
+0xr in base 16 is 181
+strtol: Success
+End pointer points to ""
+
+-0xG in base 0 is 0
+strtol: Success
+String is not a number
+
+-0xG in base 16 is 0
+strtol: Success
+String is not a number
+
+-0xr in base 0 is 0
+strtol: Success
+String is not a number
+
+-0xr in base 16 is 0
+strtol: Success
+String is not a number
+
+=== Test invalid string === 
+
++#$#$ in base 36 is 0
+strtol: Success
+String is not a number
+
+-#$#$ in base 36 is 0
+strtol: Success
+String is not a number
+
+=== Test invalid base === 
+
+-#$#$ in base 40 is 0
+strtol: Success
+String is not a number
+
+10 in base 40 is 40
+strtol: Success
+End pointer points to ""
+
+10 in base 1 is 1
+strtol: Success
+End pointer points to ""
+
+0 in base 1 is 0
+strtol: Success
+End pointer points to ""
+
+0 in base -1 is 0
+strtol: Success
+End pointer points to ""
+
