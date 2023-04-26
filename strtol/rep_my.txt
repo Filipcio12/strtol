@@ -12,87 +12,87 @@ End pointer points to ""
 strtol: Success
 End pointer points to ""
 
--1234 in base 10 is 0
-strtol: Success
-String is not a number
-
-F in base 16 is 5
+-1234 in base 10 is -1234
 strtol: Success
 End pointer points to ""
 
--F in base 16 is 0
+F in base 16 is F
 strtol: Success
-String is not a number
+End pointer points to ""
+
+-F in base 16 is -F
+strtol: Success
+End pointer points to ""
 
 === Test passing null end pointer === 
 
 === Test boundary cases for base 16 when size of long is 4 bytes === 
 
-7FFFFFFE in base 16 is 75555554
+7FFFFFFE in base 16 is 7FFFFFFE
 strtol: Success
 End pointer points to ""
 
-7FFFFFFF in base 16 is 75555555
+7FFFFFFF in base 16 is 7FFFFFFF
 strtol: Success
 End pointer points to ""
 
-80000000 in base 16 is -80000000
+80000000 in base 16 is 80000000
 strtol: Success
 End pointer points to ""
 
-80000001 in base 16 is -7FFFFFFF
+80000001 in base 16 is 80000001
 strtol: Success
 End pointer points to ""
 
--7FFFFFFF in base 16 is 0
+-7FFFFFFF in base 16 is -7FFFFFFF
 strtol: Success
-String is not a number
+End pointer points to ""
 
--80000000 in base 16 is 0
+-80000000 in base 16 is -80000000
 strtol: Success
-String is not a number
+End pointer points to ""
 
--80000001 in base 16 is 0
+-80000001 in base 16 is -80000001
 strtol: Success
-String is not a number
+End pointer points to ""
 
--80000002 in base 16 is 0
+-80000002 in base 16 is -80000002
 strtol: Success
-String is not a number
+End pointer points to ""
 
 === Test boundary cases for base 16 when size of long is 8 bytes === 
 
-7FFFFFFFFFFFFFFE in base 16 is 55555554
+7FFFFFFFFFFFFFFE in base 16 is 7FFFFFFFFFFFFFFE
 strtol: Success
 End pointer points to ""
 
-7FFFFFFFFFFFFFFF in base 16 is 55555555
+7FFFFFFFFFFFFFFF in base 16 is 7FFFFFFFFFFFFFFF
 strtol: Success
 End pointer points to ""
 
-8000000000000000 in base 16 is 0
+8000000000000000 in base 16 is 7FFFFFFFFFFFFFFF
 strtol: Success
 End pointer points to ""
 
-8000000000000001 in base 16 is 1
+8000000000000001 in base 16 is 7FFFFFFFFFFFFFFF
 strtol: Success
 End pointer points to ""
 
--7FFFFFFFFFFFFFFF in base 16 is 0
+-7FFFFFFFFFFFFFFF in base 16 is -7FFFFFFFFFFFFFFF
 strtol: Success
-String is not a number
+End pointer points to ""
 
--8000000000000000 in base 16 is 0
+-8000000000000000 in base 16 is -7FFFFFFFFFFFFFFF
 strtol: Success
-String is not a number
+End pointer points to ""
 
--8000000000000001 in base 16 is 0
+-8000000000000001 in base 16 is -7FFFFFFFFFFFFFFF
 strtol: Success
-String is not a number
+End pointer points to ""
 
--8000000000000002 in base 16 is 0
+-8000000000000002 in base 16 is -7FFFFFFFFFFFFFFF
 strtol: Success
-String is not a number
+End pointer points to ""
 
 === Test boundary cases for base 10 when size of long is 4 bytes === 
 
@@ -104,160 +104,160 @@ End pointer points to ""
 strtol: Success
 End pointer points to ""
 
-2147483648 in base 10 is -2147483648
+2147483648 in base 10 is 2147483648
 strtol: Success
 End pointer points to ""
 
-2147483649 in base 10 is -2147483647
+2147483649 in base 10 is 2147483649
 strtol: Success
 End pointer points to ""
 
--2147483647 in base 10 is 0
+-2147483647 in base 10 is -2147483647
 strtol: Success
-String is not a number
+End pointer points to ""
 
--2147483648 in base 10 is 0
+-2147483648 in base 10 is -2147483648
 strtol: Success
-String is not a number
+End pointer points to ""
 
--2147483649 in base 10 is 0
+-2147483649 in base 10 is -2147483649
 strtol: Success
-String is not a number
+End pointer points to ""
 
--2147483650 in base 10 is 0
+-2147483650 in base 10 is -2147483650
 strtol: Success
-String is not a number
+End pointer points to ""
 
 === Test boundary cases for base 10 when size of long is 8 bytes === 
 
-9223372036854775806 in base 10 is -2
+9223372036854775806 in base 10 is 9223372036854775806
 strtol: Success
 End pointer points to ""
 
-9223372036854775807 in base 10 is -1
+9223372036854775807 in base 10 is 9223372036854775807
 strtol: Success
 End pointer points to ""
 
-9223372036854775808 in base 10 is 0
+9223372036854775808 in base 10 is 9223372036854775807
 strtol: Success
 End pointer points to ""
 
-9223372036854775809 in base 10 is 1
+9223372036854775809 in base 10 is 9223372036854775807
 strtol: Success
 End pointer points to ""
 
--9223372036854775807 in base 10 is 0
+-9223372036854775807 in base 10 is -9223372036854775807
 strtol: Success
-String is not a number
+End pointer points to ""
 
--9223372036854775808 in base 10 is 0
+-9223372036854775808 in base 10 is -9223372036854775807
 strtol: Success
-String is not a number
+End pointer points to ""
 
--9223372036854775809 in base 10 is 0
+-9223372036854775809 in base 10 is -9223372036854775807
 strtol: Success
-String is not a number
+End pointer points to ""
 
--9223372036854775810 in base 10 is 0
+-9223372036854775810 in base 10 is -9223372036854775807
 strtol: Success
-String is not a number
+End pointer points to ""
 
 === Test boundary cases for base 36 when size of long is 4 bytes === 
 
-ZIK0ZI in base 36 is P8A0P8
+ZIK0ZI in base 36 is ZIK0ZI
 strtol: Success
 End pointer points to ""
 
-ZIK0ZJ in base 36 is P8A0P9
+ZIK0ZJ in base 36 is ZIK0ZJ
 strtol: Success
 End pointer points to ""
 
-ZIK0ZK in base 36 is P8A0PA
+ZIK0ZK in base 36 is ZIK0ZK
 strtol: Success
 End pointer points to ""
 
-ZIK0ZL in base 36 is P8A0PB
+ZIK0ZL in base 36 is ZIK0ZL
 strtol: Success
 End pointer points to ""
 
--ZIK0ZJ in base 36 is 0
+-ZIK0ZJ in base 36 is -ZIK0ZJ
 strtol: Success
-String is not a number
+End pointer points to ""
 
--ZIK0ZK in base 36 is 0
+-ZIK0ZK in base 36 is -ZIK0ZK
 strtol: Success
-String is not a number
+End pointer points to ""
 
--ZIK0ZL in base 36 is 0
+-ZIK0ZL in base 36 is -ZIK0ZL
 strtol: Success
-String is not a number
+End pointer points to ""
 
--ZIK0ZM in base 36 is 0
+-ZIK0ZM in base 36 is -ZIK0ZM
 strtol: Success
-String is not a number
+End pointer points to ""
 
 === Test boundary cases for base 36 when size of long is 8 bytes === 
 
-1Y2P0IJ32E8E6 in base 36 is -XBFPWQ
+1Y2P0IJ32E8E6 in base 36 is 1Y2P0IJ32E8E6
 strtol: Success
 End pointer points to ""
 
-1Y2P0IJ32E8E7 in base 36 is -XBFPWP
+1Y2P0IJ32E8E7 in base 36 is 1Y2P0IJ32E8E7
 strtol: Success
 End pointer points to ""
 
-1Y2P0IJ32E8E8 in base 36 is -XBFPWO
+1Y2P0IJ32E8E8 in base 36 is 1Y2P0IJ32E8E7
 strtol: Success
 End pointer points to ""
 
-1Y2P0IJ32E8E9 in base 36 is -XBFPWN
+1Y2P0IJ32E8E9 in base 36 is 1Y2P0IJ32E8E7
 strtol: Success
 End pointer points to ""
 
--1Y2P0IJ32E8E7 in base 36 is 0
+-1Y2P0IJ32E8E7 in base 36 is -1Y2P0IJ32E8E7
 strtol: Success
-String is not a number
+End pointer points to ""
 
--1Y2P0IJ32E8E8 in base 36 is 0
+-1Y2P0IJ32E8E8 in base 36 is -1Y2P0IJ32E8E7
 strtol: Success
-String is not a number
+End pointer points to ""
 
--1Y2P0IJ32E8E9 in base 36 is 0
+-1Y2P0IJ32E8E9 in base 36 is -1Y2P0IJ32E8E7
 strtol: Success
-String is not a number
+End pointer points to ""
 
--1Y2P0IJ32E8EA in base 36 is 0
+-1Y2P0IJ32E8EA in base 36 is -1Y2P0IJ32E8E7
 strtol: Success
-String is not a number
+End pointer points to ""
 
 === Test parsing whitespace characters === 
 
  	
- -0x234 in base 16 is 0
+ -0x234 in base 16 is -234
 strtol: Success
-String is not a number
+End pointer points to ""
 
  	
- +128 in base 10 is 0
+ +128 in base 10 is 128
 strtol: Success
-String is not a number
+End pointer points to ""
 
  	
  + 128 in base 10 is 0
 strtol: Success
-String is not a number
+End pointer points to " 128"
 
 === Test setting end pointer === 
 
--0x7FFFFFFEEEEEEEEEEE??? in base 16 is 0
+-0x7FFFFFFEEEEEEEEEEE??? in base 16 is -7FFFFFFFFFFFFFFF
 strtol: Success
-String is not a number
+End pointer points to "???"
 
--0xZZZZZZZZZZZZZZZZ??? in base 36 is 0
+-0xZZZZZZZZZZZZZZZZ??? in base 36 is -1Y2P0IJ32E8E7
 strtol: Success
-String is not a number
+End pointer points to "???"
 
-438488348HU12325235235 in base 10 is -149210589
+438488348HU12325235235 in base 10 is 9223372036854775807
 strtol: Success
 End pointer points to ""
 
@@ -267,17 +267,17 @@ End pointer points to ""
 strtol: Success
 End pointer points to ""
 
--9 in base 0 is 0
-strtol: Success
-String is not a number
-
-21474836481 in base 0 is 1
+-9 in base 0 is -9
 strtol: Success
 End pointer points to ""
 
--21474836481 in base 0 is 0
+21474836481 in base 0 is 21474836481
 strtol: Success
-String is not a number
+End pointer points to ""
+
+-21474836481 in base 0 is -21474836481
+strtol: Success
+End pointer points to ""
 
 === Test octal base recognition === 
 
@@ -285,43 +285,43 @@ String is not a number
 strtol: Success
 End pointer points to ""
 
--07 in base 0 is 0
-strtol: Success
-String is not a number
-
-071 in base 0 is 1
+-07 in base 0 is -7
 strtol: Success
 End pointer points to ""
 
--071 in base 0 is 0
+071 in base 0 is 71
 strtol: Success
-String is not a number
+End pointer points to ""
+
+-071 in base 0 is -71
+strtol: Success
+End pointer points to ""
 
 === Test hexadecimal base recognition === 
 
-0xF in base 0 is 5
+0xF in base 0 is F
 strtol: Success
 End pointer points to ""
 
--0xF in base 0 is 0
+-0xF in base 0 is -F
 strtol: Success
-String is not a number
+End pointer points to ""
 
-0x in base 0 is 17
+0x in base 0 is 0
 strtol: Success
 End pointer points to ""
 
 -0x in base 0 is 0
 strtol: Success
-String is not a number
+End pointer points to ""
 
-0x7FFFFFFE in base 0 is 4
+0x7FFFFFFE in base 0 is 7FFFFFFE
 strtol: Success
 End pointer points to ""
 
--0x7FFFFFFE in base 0 is 0
+-0x7FFFFFFE in base 0 is -7FFFFFFE
 strtol: Success
-String is not a number
+End pointer points to ""
 
 === Test zero is not misled with octal prefix === 
 
@@ -333,73 +333,73 @@ End pointer points to ""
 strtol: Success
 End pointer points to ""
 
-0r in base 0 is 21
+0r in base 0 is 33
 strtol: Success
 End pointer points to ""
 
-0r in base 8 is 21
+0r in base 8 is 33
 strtol: Success
 End pointer points to ""
 
--08 in base 0 is 0
+-08 in base 0 is -10
 strtol: Success
-String is not a number
+End pointer points to ""
 
--08 in base 8 is 0
+-08 in base 8 is -10
 strtol: Success
-String is not a number
+End pointer points to ""
 
--0r in base 0 is 0
+-0r in base 0 is -33
 strtol: Success
-String is not a number
+End pointer points to ""
 
--0r in base 8 is 0
+-0r in base 8 is -33
 strtol: Success
-String is not a number
+End pointer points to ""
 
 === Test zero is not misled with hexadecimal prefix === 
 
-0xG in base 0 is 6
+0xG in base 0 is 10
 strtol: Success
 End pointer points to ""
 
-0xG in base 16 is 176
+0xG in base 16 is 10
 strtol: Success
 End pointer points to ""
 
-0xr in base 0 is 11
+0xr in base 0 is 1B
 strtol: Success
 End pointer points to ""
 
-0xr in base 16 is 181
+0xr in base 16 is 1B
 strtol: Success
 End pointer points to ""
 
--0xG in base 0 is 0
+-0xG in base 0 is -10
 strtol: Success
-String is not a number
+End pointer points to ""
 
--0xG in base 16 is 0
+-0xG in base 16 is -10
 strtol: Success
-String is not a number
+End pointer points to ""
 
--0xr in base 0 is 0
+-0xr in base 0 is -1B
 strtol: Success
-String is not a number
+End pointer points to ""
 
--0xr in base 16 is 0
+-0xr in base 16 is -1B
 strtol: Success
-String is not a number
+End pointer points to ""
 
 === Test invalid string === 
 
 +#$#$ in base 36 is 0
 strtol: Success
-String is not a number
+End pointer points to "#$#$"
 
 -#$#$ in base 36 is 0
 strtol: Success
-String is not a number
+End pointer points to "#$#$"
 
 === Test invalid base === 
 
@@ -407,19 +407,19 @@ String is not a number
 strtol: Success
 String is not a number
 
-10 in base 40 is 40
+10 in base 40 is 0
 strtol: Success
-End pointer points to ""
+String is not a number
 
-10 in base 1 is 1
+10 in base 1 is 0
 strtol: Success
-End pointer points to ""
+String is not a number
 
 0 in base 1 is 0
 strtol: Success
-End pointer points to ""
+String is not a number
 
 0 in base -1 is 0
 strtol: Success
-End pointer points to ""
+String is not a number
 
