@@ -5,6 +5,7 @@
 
 long strtol(const char* nPtr, char** endPtr, int base)
 {
+	errno = 0;
 	char c = *nPtr;
 	long value = 0;
 	int sign = 1;
@@ -76,6 +77,7 @@ long strtol(const char* nPtr, char** endPtr, int base)
 		else
 		{
 			value = LONG_MAX;
+			errno = ERANGE;
 		}
 		
 		
