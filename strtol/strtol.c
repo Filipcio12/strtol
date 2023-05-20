@@ -3,6 +3,10 @@
 #include <limits.h>
 #include <stdlib.h>
 
+int checkBase(const char** nPtr, char*** endPtr, int* base, char* c);
+int checkBase0(const char** nPtr, char*** endPtr, int* base, char* c);
+int checkBase16(const char** nPtr, char*** endPtr, int* base, char* c);
+
 long strtol(const char* nPtr, char** endPtr, int base)
 {
 	errno = 0;
@@ -33,66 +37,8 @@ long strtol(const char* nPtr, char** endPtr, int base)
 		c = *(++nPtr);
 	}
 
-	// Checking base
-
-	if (base == 0) {
-		if (c == '0' && (*(nPtr + 1) == 'x' || *(nPtr + 1) == 'X')) {
-			int digit = *(nPtr + 2);
-
-			if (isdigit(digit)) {
-				digit = digit - '0';
-			}
-			else if (isalpha(digit)) {
-				digit = toupper(digit) - 'A' + 10;
-			}
-			else {
-				nPtr++;
-				*endPtr = (char*)nPtr;
-				return 0;
-			}
-
-			if (digit >= 16) {
-				nPtr++;
-				*endPtr = (char*)nPtr;
-				return 0;
-			}
-
-			base = 16;
-			nPtr += 2;
-			c = *nPtr;
-		}
-		else if (c == '0') {
-			base = 8;
-			c = *(++nPtr);
-		}
-		else {
-			base = 10;
-		}
-	}
-	else if (base == 16 && c == '0' &&
-			 (*(nPtr + 1) == 'x' || *(nPtr + 1) == 'X')) {
-		int digit = *(nPtr + 2);
-
-		if (isdigit(digit)) {
-			digit = digit - '0';
-		}
-		else if (isalpha(digit)) {
-			digit = toupper(digit) - 'A' + 10;
-		}
-		else {
-			nPtr++;
-			*endPtr = (char*)nPtr;
-			return 0;
-		}
-
-		if (digit >= 16) {
-			nPtr++;
-			*endPtr = (char*)nPtr;
-			return 0;
-		}
-
-		nPtr += 2;
-		c = *nPtr;
+	if (!checkBase(&nPtr, &endPtr, &base, &c)) {
+		return 0;
 	}
 
 	int digit;
@@ -150,4 +96,86 @@ long strtol(const char* nPtr, char** endPtr, int base)
 	}
 
 	return value;
+}
+
+int checkBase16(const char** nPtr, char*** endPtr, int* base, char* c)
+{
+	int digit = *((*nPtr) + 2);
+
+	if (isdigit(digit)) {
+		digit = digit - '0';
+	}
+	else if (isalpha(digit)) {
+		digit = toupper(digit) - 'A' + 10;
+	}
+	else {
+		(*nPtr)++;
+		*(*endPtr) = (char*)(*nPtr);
+		return 0;
+	}
+
+	if (digit >= 16) {
+		(*nPtr)++;
+		*(*endPtr) = (char*)(*nPtr);
+		return 0;
+	}
+
+	(*nPtr) += 2;
+	(*c) = *(*nPtr);
+	
+	return 1;
+}
+
+int checkBase0(const char** nPtr, char*** endPtr, int* base, char* c)
+{
+	if ((*c) == '0' && (*((*nPtr) + 1) == 'x' || *((*nPtr) + 1) == 'X')) {
+		int digit = *((*nPtr) + 2);
+
+		if (isdigit(digit)) {
+			digit = digit - '0';
+		}
+		else if (isalpha(digit)) {
+			digit = toupper(digit) - 'A' + 10;
+		}
+		else {
+			(*nPtr)++;
+			*(*endPtr) = (char*)(*nPtr);
+			return 0;
+		}
+
+		if (digit >= 16) {
+			(*nPtr)++;
+			*(*endPtr) = (char*)(*nPtr);
+			return 0;
+		}
+
+		(*base) = 16;
+		(*nPtr) += 2;
+		(*c) = *(*nPtr);
+	}
+	else if ((*c) == '0') {
+		(*base) = 8;
+		(*c) = *(++(*nPtr));
+	}
+	else {
+		(*base) = 10;
+	}
+
+	return 1;
+}
+
+int checkBase(const char** nPtr, char*** endPtr, int* base, char* c)
+{
+	if ((*base) == 0 && checkBase0(nPtr, endPtr, base, c) == 0) {
+		return 0;
+	}
+	else if (
+			(*base) == 16 && (*c) == '0' &&
+			(*((*nPtr) + 1) == 'x' || *((*nPtr) + 1) == 'X') &&
+			checkBase16(nPtr, endPtr, base, c) == 0
+		) {
+		return 0;
+	}
+
+	return 1;
 }
