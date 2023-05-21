@@ -6,6 +6,7 @@
 int checkBase(const char** nPtr, char*** endPtr, int* base, char* c);
 int checkBase0(const char** nPtr, char*** endPtr, int* base, char* c);
 int checkBase16(const char** nPtr, char*** endPtr, int* base, char* c);
+void addDigit(long* value, int d, int sign, int base);
 
 long strtol(const char* nPtr, char** endPtr, int base)
 {
@@ -14,20 +15,14 @@ long strtol(const char* nPtr, char** endPtr, int base)
 	long value = 0;
 	int sign = 1;
 
-	// Incorrect base
-
 	if ((base < 2 || base > 36) && base != 0) {
 		errno = EINVAL;
 		return 0;
 	}
 
-	// Skipping white space
-
 	while (isspace(c)) {
 		c = *(++nPtr);
 	}
-
-	// Checking sign
 
 	if (c == '-') {
 		sign = -1;
@@ -41,54 +36,16 @@ long strtol(const char* nPtr, char** endPtr, int base)
 		return 0;
 	}
 
-	int digit;
-
-	if (isdigit(c)) {
-		digit = c - '0';
-	}
-	else if (isalpha(c)) {
-		digit = toupper(c) - 'A' + 10;
-	}
-	else {
+	if (!isalnum(c)) {
 		return 0;
 	}
 
-	if (digit >= base) {
-		*endPtr = (char*)nPtr;
-		return 0;
-	}
+	int d = isdigit(c) ? (c - '0') : (isalpha(c) ? (toupper(c) - 'A' + 10) : 0);
 
-	while (digit < base) {
-		if (sign == 1) {
-			if (value <= (LONG_MAX - digit) / base) {
-				value = value * base + digit;
-			}
-			else {
-				value = LONG_MAX;
-				errno = ERANGE;
-			}
-		}
-		else if (sign == -1) {
-			if (value >= (LONG_MIN + digit) / base) {
-				value = value * base - digit;
-			}
-			else {
-				value = LONG_MIN;
-				errno = ERANGE;
-			}
-		}
-
+	while (isalnum(c) && d < base) {
+		addDigit(&value, d, sign, base);
 		c = *(++nPtr);
-
-		if (isdigit(c)) {
-			digit = c - '0';
-		}
-		else if (isalpha(c)) {
-			digit = toupper(c) - 'A' + 10;
-		}
-		else {
-			break;
-		}
+		d = isdigit(c) ? (c - '0') : (isalpha(c) ? (toupper(c) - 'A' + 10) : 0);
 	}
 
 	if (endPtr != NULL) {
@@ -98,15 +55,37 @@ long strtol(const char* nPtr, char** endPtr, int base)
 	return value;
 }
 
+void addDigit(long* value, int d, int sign, int base)
+{
+	if (sign == 1) {
+			if ((*value) <= (LONG_MAX - d) / base) {
+				(*value) = (*value) * base + d;
+			}
+			else {
+				(*value) = LONG_MAX;
+				errno = ERANGE;
+			}
+		}
+		else if (sign == -1) {
+			if ((*value) >= (LONG_MIN + d) / base) {
+				(*value) = (*value) * base - d;
+			}
+			else {
+				(*value) = LONG_MIN;
+				errno = ERANGE;
+			}
+		}
+}
+
 int checkBase16(const char** nPtr, char*** endPtr, int* base, char* c)
 {
-	int digit = *((*nPtr) + 2);
+	int d = *((*nPtr) + 2);
 
-	if (isdigit(digit)) {
-		digit = digit - '0';
+	if (isdigit(d)) {
+		d = d - '0';
 	}
-	else if (isalpha(digit)) {
-		digit = toupper(digit) - 'A' + 10;
+	else if (isalpha(d)) {
+		d = toupper(d) - 'A' + 10;
 	}
 	else {
 		(*nPtr)++;
@@ -114,7 +93,7 @@ int checkBase16(const char** nPtr, char*** endPtr, int* base, char* c)
 		return 0;
 	}
 
-	if (digit >= 16) {
+	if (d >= 16) {
 		(*nPtr)++;
 		*(*endPtr) = (char*)(*nPtr);
 		return 0;
@@ -129,13 +108,13 @@ int checkBase16(const char** nPtr, char*** endPtr, int* base, char* c)
 int checkBase0(const char** nPtr, char*** endPtr, int* base, char* c)
 {
 	if ((*c) == '0' && (*((*nPtr) + 1) == 'x' || *((*nPtr) + 1) == 'X')) {
-		int digit = *((*nPtr) + 2);
+		int d = *((*nPtr) + 2);
 
-		if (isdigit(digit)) {
-			digit = digit - '0';
+		if (isdigit(d)) {
+			d = d - '0';
 		}
-		else if (isalpha(digit)) {
-			digit = toupper(digit) - 'A' + 10;
+		else if (isalpha(d)) {
+			d = toupper(d) - 'A' + 10;
 		}
 		else {
 			(*nPtr)++;
@@ -143,7 +122,7 @@ int checkBase0(const char** nPtr, char*** endPtr, int* base, char* c)
 			return 0;
 		}
 
-		if (digit >= 16) {
+		if (d >= 16) {
 			(*nPtr)++;
 			*(*endPtr) = (char*)(*nPtr);
 			return 0;
